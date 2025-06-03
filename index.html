@@ -146,12 +146,21 @@
     });
 
     //Variable representing the console assert button
-    // let consoleAssert = errorButtons[4];
+    let consoleAssert = errorButtons[4];
 
-    // consoleAssert.addEventListener("click", () => {
+    consoleAssert.addEventListener("click", () => {
+      let firstNum = document.querySelector('#first-num').value;
+      let secondNum = document.querySelector('#second-num').value;
+      let reason = "first num is expected to be less than second num";
+      console.assert(firstNum < secondNum, reason, {firstNum, secondNum});
+    });
 
-    // })
 
+    let consoleClear = errorButtons[5];
+
+    consoleClear.addEventListener("click", () => {
+      console.clear();
+    });
 
   </script>
 </body>
