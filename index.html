@@ -162,6 +162,33 @@
       console.clear();
     });
 
+    let consoleDir = errorButtons[6];
+
+    consoleDir.addEventListener("click", () => {
+      console.dir(form);
+    });
+
+    let consoleDirxml = errorButtons[7];
+
+    consoleDirxml.addEventListener("click", () => {
+      console.dirxml(form);
+    });
+
+
+    let consoleGroupStart = errorButtons[8];
+
+    let label = 'Grouped Info: '
+
+    consoleGroupStart.addEventListener("click", () => {
+      console.group(label);
+    });
+
+    let consoleGroupEnd = errorButtons[9];
+
+    consoleGroupEnd.addEventListener("click", () => {
+      console.groupEnd(label);
+    });
+
   </script>
 </body>
 
