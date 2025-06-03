@@ -102,6 +102,24 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    //Make variable representing all of the buttons.
+    let errorButtons = document.querySelectorAll('#error-btns button');
+
+    //Make variable representing the console button.
+    let consoleLog = errorButtons[0];
+
+    //When consoleLog button is clicked, it outputs a message that the button was clicked and the 2 operands entered
+    consoleLog.addEventListener("click", () => {
+      let output = document.querySelector('output');
+      let firstNum = document.querySelector('#first-num').value;
+      let secondNum = document.querySelector('#second-num').value;
+      console.log("Console button has been clicked!");
+      console.log(`The first number is: ${firstNum}`);
+      console.log(`The second number is: ${secondNum}`);
+    });
+
+
   </script>
 </body>
 
