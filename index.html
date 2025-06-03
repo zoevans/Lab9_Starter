@@ -106,7 +106,7 @@
     //Make variable representing all of the buttons.
     let errorButtons = document.querySelectorAll('#error-btns button');
 
-    //Make variable representing the console button.
+    //Make variable representing the console log button.
     let consoleLog = errorButtons[0];
 
     //When consoleLog button is clicked, it outputs a message that the button was clicked and the 2 operands entered
@@ -118,6 +118,39 @@
       console.log(`The first number is: ${firstNum}`);
       console.log(`The second number is: ${secondNum}`);
     });
+
+    //Variable representing the console error button
+    let consoleError = errorButtons[1];
+
+    //When consoleError button is clicked, it outputs a message formatted as an error
+    consoleError.addEventListener("click", () => {
+      console.error("Console Error thrown!");
+    });
+
+
+    //Variable representing the console count button
+    let consoleCount = errorButtons[2];
+
+    //When consoleCount button is clicked, it increases the count 
+    consoleCount.addEventListener("click", () => {
+      console.count('count');
+    });
+
+
+    //Variable representing the console warn button
+    let consoleWarn = errorButtons[3];
+
+    //When consoleWarn button is clicked, it throws a warning
+    consoleWarn.addEventListener("click", () => {
+      console.warn("Console Warning thrown!");
+    });
+
+    //Variable representing the console assert button
+    // let consoleAssert = errorButtons[4];
+
+    // consoleAssert.addEventListener("click", () => {
+
+    // })
 
 
   </script>
