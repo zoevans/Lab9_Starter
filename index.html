@@ -7,6 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "d8ed6f90fab54fa1b492e19c6d812c3e"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+
+    TrackJS.track('testing!');
+
+    console.log("Testing TrackJS successful!");
+
+  </script>
+
   <style>
     button {
       margin: 3px;
@@ -88,17 +101,54 @@
   </main>
 
   <script>
+    class InputError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "InputError";
+      }
+    }
+
+    function inputCheck(firstNum, secondNum) {
+
+      if (!firstNum) {
+        throw new InputError("No field: firstNum");
+      }
+      if (!secondNum) {
+        throw new InputError("No field: secondNum");
+      }
+
+      return;
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
-    });
 
-    let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+      try {
+        let output = document.querySelector('output');
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        inputCheck(firstNum, secondNum);
+        let operator = document.querySelector('#operator').value;
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch(err) {
+        
+        if (window.TrackJS) TrackJS.track(err);
+
+        if(!(err instanceof SyntaxError)){
+          throw err;
+        }
+
+        if(err instanceof InputError){
+          alert("Invalid input: " + err.message);
+        }
+
+        alert("Error with evaluating calculator inputs.");
+
+      } finally {
+        let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+      }
+    });
 
     // Start your code here
     // You may move this JS to another file if you wish
@@ -124,6 +174,7 @@
 
     //When consoleError button is clicked, it outputs a message formatted as an error
     consoleError.addEventListener("click", () => {
+      TrackJS.track('testing!');
       console.error("Console Error thrown!");
     });
 
@@ -187,6 +238,65 @@
 
     consoleGroupEnd.addEventListener("click", () => {
       console.groupEnd(label);
+    });
+
+    let consoleTable = errorButtons[10];
+
+    consoleTable.addEventListener("click", () => {
+      var finalsSchedule = [
+        {
+          class: 'CSE 110',
+          FinalDate: 'Thursday',
+        },
+        {
+          class: 'LTEN 127',
+          FinalDate: 'Tuesday',
+        },
+        {
+          class: 'ECE 65',
+          FinalDate: 'Monday',
+        },
+        {
+          class: 'CSE 101',
+          FinalDate: 'Wednesday',
+        }
+      ];
+      
+      console.table(finalsSchedule);
+    });
+
+    let consoleStartTimer = errorButtons[11];
+
+    consoleStartTimer.addEventListener("click", () => {
+      console.time('Console Demo Timer');
+    });
+
+    let consoleEndTimer = errorButtons[12];
+
+    consoleEndTimer.addEventListener("click", () => {
+      console.timeEnd('Console Demo Timer');
+    });
+
+    let consoleTrace = errorButtons[13];
+
+    consoleTrace.addEventListener("click", () => {
+      const crust = () => { mantle(); };
+      const mantle = () => { outerCore(); };
+      const outerCore = () => { innerCore(); };
+      const innerCore = () => { console.trace(); };
+      crust();
+    });
+
+    
+    window.onerror = function(message, source, line, col, error){
+      console.log("Error: ", message, source, line, col, error);
+    }
+    
+    
+    let triggerGlobalError = errorButtons[14];
+
+    triggerGlobalError.addEventListener("click", () => {
+      undefinedFunction();
     });
 
   </script>
