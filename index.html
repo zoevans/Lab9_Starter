@@ -133,20 +133,22 @@
         output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
       } catch(err) {
         
-        if (window.TrackJS) TrackJS.track(err);
+        if (window.TrackJS) {
+          TrackJS.track(err);
+        } 
 
-        if(!(err instanceof SyntaxError)){
+        if((err instanceof SyntaxError)){
+          console.log("Syntax error!")
           throw err;
-        }
-
-        if(err instanceof InputError){
+        } else if(err instanceof InputError){
           alert("Invalid input: " + err.message);
+        } else {
+          alert("Unknown Error.");
         }
-
-        alert("Error with evaluating calculator inputs.");
 
       } finally {
         let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+        alert("Error with evaluating calculator inputs.");
       }
     });
 
